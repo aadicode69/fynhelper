@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fynhelper/dash/expense_dialog.dart';
+import 'package:fynhelper/dash/navbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Dashbaord extends StatefulWidget {
-  const Dashbaord({super.key});
+class Dashboard extends StatefulWidget {
+  const Dashboard({super.key});
 
   @override
-  State<Dashbaord> createState() => _DashbaordState();
+  State<Dashboard> createState() => _DashboardState();
 }
 
-class _DashbaordState extends State<Dashbaord> {
+class _DashboardState extends State<Dashboard> {
   List<Map<String, dynamic>> expenses = [];
 
   void addExpense(String name, String amount, bool type) {
@@ -28,8 +29,8 @@ class _DashbaordState extends State<Dashbaord> {
       debugShowCheckedModeBanner: false,
       title: 'Dashboard',
       home: Scaffold(
+        drawer: Navbar(),
         appBar: AppBar(
-          leading: const Icon(Icons.menu, size: 30),
           title: Text(
             "FynHelper",
             style: GoogleFonts.poppins(
