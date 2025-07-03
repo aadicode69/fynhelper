@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fynhelper/home/login_page.dart';
+import 'package:fynhelper/sidebar_pages/about_us.dart';
+import 'package:fynhelper/sidebar_pages/my_account.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Navbar extends StatelessWidget {
@@ -50,11 +52,18 @@ class Navbar extends StatelessWidget {
           ListTile(
               leading: Icon(Icons.group),
               title: Text("About us"),
-              onTap: () => null),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUs()));
+              }
+          ),
           ListTile(
             leading: Icon(Icons.person),
             title: Text("My Account"),
-            onTap: () => null,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MyAccount()));
+              }
           ),
           ListTile(
             leading: Icon(Icons.calendar_month),

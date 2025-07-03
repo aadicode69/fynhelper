@@ -3,9 +3,18 @@ import 'package:fynhelper/dash/dashboard.dart';
 import 'package:fynhelper/home/home_page.dart';
 import 'package:fynhelper/home/login_page.dart';
 import 'package:fynhelper/home/signup_page.dart';
+import 'package:fynhelper/providers/exxpense_provider.dart';
+import 'package:fynhelper/sidebar_pages/about_us.dart';
+import 'package:fynhelper/sidebar_pages/my_account.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ExpenseProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,6 +32,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => Login(),
         '/signup': (context) => Signup(),
         '/dashboard': (context) => Dashboard(),
+        '/about': (context) => AboutUs(),
+        '/account': (context) => MyAccount(),
       },
     );
   }
