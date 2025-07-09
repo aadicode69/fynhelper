@@ -14,7 +14,6 @@ class MyAccount extends StatefulWidget {
 class _MyAccountState extends State<MyAccount> {
   TextEditingController limitController = TextEditingController();
   TextEditingController budgetController = TextEditingController();
-  int? dailyLimit;
   int? budget;
   bool isVisible = false;
   bool isVisible2 = false;
@@ -27,7 +26,7 @@ class _MyAccountState extends State<MyAccount> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
-        border: Border(
+        border: const Border(
           left: BorderSide(
             color: Colors.black,
             width: 4,
@@ -68,6 +67,8 @@ class _MyAccountState extends State<MyAccount> {
 
   @override
   Widget build(BuildContext context) {
+    final expenseProvider = Provider.of<ExpenseProvider>(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -140,9 +141,9 @@ class _MyAccountState extends State<MyAccount> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          customBox("Pocket Money", "₹3,000"),
+                          customBox("Pocket Money", "₹${budget ?? 0}"),
                           const SizedBox(width: 16),
-                          customBox("Per Day Limit", "₹100"),
+                          customBox("Per Day Limit", "₹${expenseProvider.dailyLimit}"),
                         ],
                       ),
                       const SizedBox(height: 16),
@@ -152,31 +153,19 @@ class _MyAccountState extends State<MyAccount> {
                         indent: 46,
                         endIndent: 46,
                       ),
-                      const SizedBox(
-                        height: 16,
-                      ),
+                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          customBox("Credits",
-                              "₹${Provider.of<ExpenseProvider>(context).totalCredits}"),
+                          customBox("Credits", "₹${expenseProvider.totalCredits}"),
                           const SizedBox(width: 16),
-                          customBox("Debits",
-                              "₹${Provider.of<ExpenseProvider>(context).totalDebits}"),
+                          customBox("Debits", "₹${expenseProvider.totalDebits}"),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black26),
                           borderRadius: BorderRadius.circular(26),
@@ -200,12 +189,8 @@ class _MyAccountState extends State<MyAccount> {
                                     });
                                   },
                                   style: OutlinedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 18,
-                                      vertical: 8,
-                                    ),
-                                    side: const BorderSide(
-                                        color: Colors.black26, width: 1.5),
+                                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                                    side: const BorderSide(color: Colors.black26, width: 1.5),
                                     backgroundColor: Colors.black,
                                     foregroundColor: Colors.white,
                                     elevation: 4,
@@ -213,14 +198,8 @@ class _MyAccountState extends State<MyAccount> {
                                   ),
                                   child: Row(
                                     children: [
-                                      const Icon(
-                                        Icons.add,
-                                        size: 18,
-                                        color: Colors.white,
-                                      ),
-                                      const SizedBox(
-                                        width: 6,
-                                      ),
+                                      const Icon(Icons.add, size: 18, color: Colors.white),
+                                      const SizedBox(width: 6),
                                       Text(
                                         'Add Amount',
                                         style: GoogleFonts.poppins(
@@ -234,10 +213,7 @@ class _MyAccountState extends State<MyAccount> {
                                 )
                               ],
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            if(isVisible2)
+                            if (isVisible2)
                               TextField(
                                 controller: budgetController,
                                 keyboardType: TextInputType.number,
@@ -247,28 +223,23 @@ class _MyAccountState extends State<MyAccount> {
                                   ),
                                   hintText: 'Enter your budget',
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                    const BorderSide(color: Colors.black),
+                                    borderSide: const BorderSide(color: Colors.black),
                                     borderRadius: BorderRadius.circular(14),
                                   ),
-                                  suffixIcon: IconButton(onPressed: (){
-                                    final value2 = int.tryParse(budgetController.text);
-                                    if(value2 != null){
-                                      budget = value2;
-                                      print('Budget of the month is : ${budget}');
-                                    }
-                                    else{
-                                      print('Invalid value entered');
-                                    }
-                                    setState(() {
-                                      isVisible2 = false;
-                                    });
-                                  }, icon: const Icon(Icons.check, color: Colors.black,)),
-                                  disabledBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Colors.black26,
-                                        width: 2,
-                                      )
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      final value = int.tryParse(budgetController.text);
+                                      if (value != null) {
+                                        setState(() {
+                                          budget = value;
+                                          isVisible2 = false;
+                                        });
+                                        print('Budget of the month is : $budget');
+                                      } else {
+                                        print('Invalid value entered');
+                                      }
+                                    },
+                                    icon: const Icon(Icons.check, color: Colors.black),
                                   ),
                                 ),
                               )
@@ -278,10 +249,8 @@ class _MyAccountState extends State<MyAccount> {
                         ),
                       ),
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black26),
                           borderRadius: BorderRadius.circular(26),
@@ -298,12 +267,8 @@ class _MyAccountState extends State<MyAccount> {
                                     });
                                   },
                                   style: OutlinedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 18,
-                                      vertical: 8,
-                                    ),
-                                    side: const BorderSide(
-                                        color: Colors.black26, width: 1.5),
+                                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                                    side: const BorderSide(color: Colors.black26, width: 1.5),
                                     backgroundColor: Colors.black,
                                     foregroundColor: Colors.white,
                                     elevation: 4,
@@ -319,14 +284,8 @@ class _MyAccountState extends State<MyAccount> {
                                           color: Colors.white,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 6,
-                                      ),
-                                      const Icon(
-                                        Icons.add,
-                                        size: 18,
-                                        color: Colors.white,
-                                      ),
+                                      const SizedBox(width: 6),
+                                      const Icon(Icons.add, size: 18, color: Colors.white),
                                     ],
                                   ),
                                 ),
@@ -339,9 +298,6 @@ class _MyAccountState extends State<MyAccount> {
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
                             if (isVisible)
                               TextField(
                                 controller: limitController,
@@ -352,18 +308,15 @@ class _MyAccountState extends State<MyAccount> {
                                   ),
                                   hintText: 'Enter Daily Limit',
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.black),
+                                    borderSide: const BorderSide(color: Colors.black),
                                     borderRadius: BorderRadius.circular(14),
                                   ),
                                   suffixIcon: IconButton(
                                     onPressed: () {
-                                      final value =
-                                          int.tryParse(limitController.text);
+                                      final value = int.tryParse(limitController.text);
                                       if (value != null) {
-                                        dailyLimit = value;
-                                        print(
-                                            'Daily limit set to : ${dailyLimit}');
+                                        expenseProvider.setDailyLimit(value);
+                                        print('Daily limit set to : $value');
                                       } else {
                                         print('Invalid number entered');
                                       }
@@ -371,23 +324,12 @@ class _MyAccountState extends State<MyAccount> {
                                         isVisible = false;
                                       });
                                     },
-                                    icon: const Icon(
-                                      Icons.check,
-                                      color: Colors.black,
-                                    ),
+                                    icon: const Icon(Icons.check, color: Colors.black),
                                   ),
-                                  disabledBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                    color: Colors.black26,
-                                    width: 2,
-                                  )),
                                 ),
                               )
                             else
                               const SizedBox.shrink(),
-                            SizedBox(
-                              height: 4,
-                            ),
                           ],
                         ),
                       ),

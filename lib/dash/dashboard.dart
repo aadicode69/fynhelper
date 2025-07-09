@@ -13,13 +13,13 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  final int perDayLimit = 100;
 
   @override
   Widget build(BuildContext context) {
     final expenseProvider = Provider.of<ExpenseProvider>(context);
     final expenses = expenseProvider.expenses;
     final totalDebits = expenseProvider.totalDebits;
+    final perDayLimit = expenseProvider.dailyLimit;
     final limitReached = totalDebits > perDayLimit;
 
     return Scaffold(
