@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -8,6 +9,17 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  void _handleLogin(){
+    if(_formKey.currentState!.validate()){
+      Navigator.pushNamed(context, '/dashboard');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,19 +43,19 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 40),
-                  const Padding(
-                    padding: EdgeInsets.all(20),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Login",
-                          style: TextStyle(color: Colors.white, fontSize: 40),
+                          style: GoogleFonts.montserrat(color: Colors.white, fontSize: 40),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           "Welcome Back",
-                          style: TextStyle(color: Colors.white, fontSize: 30),
+                          style: GoogleFonts.montserrat(color: Colors.white, fontSize: 30),
                         ),
                       ],
                     ),
@@ -59,97 +71,119 @@ class _LoginState extends State<Login> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(30),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 40),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color.fromRGBO(27, 95, 225, 0.3),
-                                  blurRadius: 20,
-                                  offset: Offset(0, 10),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Colors.grey.shade200,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 40),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color.fromRGBO(27, 95, 225, 0.3),
+                                    blurRadius: 20,
+                                    offset: Offset(0, 10),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        bottom: BorderSide(
+                                          color: Colors.grey.shade200,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  child: const TextField(
-                                    decoration: InputDecoration(
-                                      hintText: "Enter your email",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none,
+                                    child: TextFormField(
+                                      controller: _emailController,
+                                      keyboardType: TextInputType.emailAddress,
+                                      decoration: InputDecoration(
+                                        hintText: "Enter your email",
+                                        hintStyle: GoogleFonts.comfortaa(color: Colors.grey),
+                                        border: InputBorder.none,
+                                      ),
+                                      validator: (value){
+                                        if (value == null || value.isEmpty){
+                                          return 'Please enter your email';
+                                        }
+                                        if(!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(value)){
+                                          return 'Enter a valid email';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Colors.grey.shade200,
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        bottom: BorderSide(
+                                          color: Colors.grey.shade200,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  child: const TextField(
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      hintText: "Password",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none,
+                                    child: TextFormField(
+                                      controller: _passwordController,
+                                      obscureText: true,
+                                      decoration: InputDecoration(
+                                        hintText: "Password",
+                                        hintStyle: GoogleFonts.comfortaa(color: Colors.grey),
+                                        border: InputBorder.none,
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter your password';
+                                        }
+                                        if (value.length < 6) {
+                                          return 'Password must be at least 6 characters';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          const Text(
-                            "Forgot Password?",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          const SizedBox(height: 30),
-                          Image.asset(
-                            'assets/images/login-ill.png',
-                            height: 200,
-                          ),
-                          const SizedBox(height: 30),
-                          Container(
-                            height: 50,
-                            margin: const EdgeInsets.symmetric(horizontal: 50),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.blue.shade900,
+                            const SizedBox(height: 20),
+                            Text(
+                              "Forgot Password?",
+                              style: GoogleFonts.comfortaa(color: Colors.grey),
                             ),
-                            child: Center(
-                              child: TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/dashboard');
-                                },
-                                child: const Text(
-                                  "Login",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                            const SizedBox(height: 30),
+                            Image.asset(
+                              'assets/images/login-ill.png',
+                              height: 200,
+                            ),
+                            const SizedBox(height: 30),
+                            Container(
+                              height: 50,
+                              margin: const EdgeInsets.symmetric(horizontal: 50),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.blue.shade900,
+                              ),
+                              child: Center(
+                                child: TextButton(
+                                  onPressed: _handleLogin,
+                                  child: Text(
+                                    "Login",
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 40),
-                        ],
+                            const SizedBox(height: 40),
+                          ],
+                        ),
                       ),
                     ),
                   ),

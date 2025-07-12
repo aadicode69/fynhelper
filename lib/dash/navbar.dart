@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fynhelper/home/home_page.dart';
 import 'package:fynhelper/sidebar_pages/help&support.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fynhelper/home/login_page.dart';
@@ -128,6 +129,8 @@ class Navbar extends StatelessWidget {
             label: "Exit",
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const Home()));
             },
           ),
           const SizedBox(height: 12),
