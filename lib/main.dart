@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fynhelper/dash/dashboard.dart';
 import 'package:fynhelper/home/home_page.dart';
@@ -8,7 +9,9 @@ import 'package:fynhelper/sidebar_pages/about_us.dart';
 import 'package:fynhelper/sidebar_pages/my_account.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     ChangeNotifierProvider(
       create: (_) => ExpenseProvider(),

@@ -9,55 +9,33 @@ class AboutUs extends StatelessWidget {
     final List<Map<String, String>> teamMembers = [
       {
         "name": "Aaditya Goyal",
-        "role": "Team Lead & Full Stack Developer",
-        "desc":
-        "Drives the vision of the app and handles both backend and frontend architecture.",
-        "image": "https://i.pravatar.cc/150?img=1",
-        "linkedin": "aadityagoyal"
+        "image": "assets/images/my.jpg",
+        "linkedin": "aadityagoyal-net"
       },
       {
-        "name": "Riya Sharma",
-        "role": "UI/UX Designer",
-        "desc":
-        "Crafts intuitive and elegant user experiences that delight our users.",
-        "image": "https://i.pravatar.cc/150?img=2",
-        "linkedin": "riya-sharma"
+        "name": "Utkarsh Raj",
+        "image": "assets/images/pf3.jpg",
+        "linkedin": "utkarsh-raj-a91b83245"
       },
       {
-        "name": "Kunal Verma",
-        "role": "Backend Developer",
-        "desc": "Specializes in server-side logic and database management.",
-        "image": "https://i.pravatar.cc/150?img=3",
-        "linkedin": "kunal-verma"
+        "name": "Saksham Singh",
+        "image": "assets/images/pf5.jpg",
+        "linkedin": "saksham-singh-4203a5346"
       },
       {
-        "name": "Sneha Patil",
-        "role": "Frontend Developer",
-        "desc":
-        "Ensures pixel-perfect UI and seamless interactions for the users.",
-        "image": "https://i.pravatar.cc/150?img=4",
-        "linkedin": "sneha-patil"
+        "name": "Naina Verma",
+        "image": "assets/images/pf2.jpg",
+        "linkedin": "naina-verma-3755242b4"
       },
       {
-        "name": "Rohit Singh",
-        "role": "Security Analyst",
-        "desc": "Guards the app against vulnerabilities and enforces data security.",
-        "image": "https://i.pravatar.cc/150?img=5",
-        "linkedin": "rohit-singh"
+        "name": "Yogita Upadhyay",
+        "image": "assets/images/profilepic1.jpg",
+        "linkedin": "yogita-upadhyay-0020172b0"
       },
       {
-        "name": "Megha Raj",
-        "role": "QA & Tester",
-        "desc": "Tests every release to ensure bug-free user experiences.",
-        "image": "https://i.pravatar.cc/150?img=6",
-        "linkedin": "megha-raj"
-      },
-      {
-        "name": "Arjun Rao",
-        "role": "DevOps & Deployment",
-        "desc": "Manages app deployment and ensures high availability.",
-        "image": "https://i.pravatar.cc/150?img=7",
-        "linkedin": "arjun-rao"
+        "name": "Gargi Lohiya",
+        "image": "assets/images/pf4.jpg",
+        "linkedin": "gargi-lohia-750393372"
       },
     ];
 
@@ -161,7 +139,7 @@ class AboutUs extends StatelessWidget {
                               shape: BoxShape.circle,
                             ),
                             child: ClipOval(
-                              child: Image.network(
+                              child: Image.asset(
                                 member['image']!,
                                 width: 65,
                                 height: 65,
@@ -182,22 +160,6 @@ class AboutUs extends StatelessWidget {
                                     color: Colors.black87,
                                   ),
                                 ),
-                                Text(
-                                  member['role']!,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: Colors.grey[700],
-                                  ),
-                                ),
-                                const SizedBox(height: 6),
-                                Text(
-                                  member['desc']!,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 13,
-                                    color: Colors.grey[800],
-                                  ),
-                                ),
-                                const SizedBox(height: 6),
                                 Row(
                                   children: [
                                     const Icon(Icons.link,

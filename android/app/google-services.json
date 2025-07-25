@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "820900469510",
+    "project_id": "fire-fynhelper",
+    "storage_bucket": "fire-fynhelper.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:820900469510:android:1bdb956c33c5d04e681c87",
+        "android_client_info": {
+          "package_name": "com.example.fynhelper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBwpt-2AK65JZWfzUUmySN02jho1DhV8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

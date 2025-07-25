@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fynhelper/home/home_page.dart';
+import 'package:fynhelper/sidebar_pages/expense_calendar_page.dart';
 import 'package:fynhelper/sidebar_pages/help&support.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fynhelper/home/login_page.dart';
@@ -86,7 +87,9 @@ class Navbar extends StatelessWidget {
             icon: Icons.calendar_today_outlined,
             label: "Expense Calendar",
             onTap: () {
-              // Add your navigation here
+              Navigator.pop(context);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => ExpenseCalendarPage()));
             },
           ),
           _buildNavItem(
